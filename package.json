@@ -1,0 +1,21 @@
+{
+  "name": "@readest/monorepo",
+  "private": true,
+  "repository": "readest/readest",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tauri": "pnpm --filter @readest/readest-app tauri"
+  },
+  "devDependencies": {
+    "@sindresorhus/tsconfig": "^6.0.0",
+    "eslint": "^9",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.1.6",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "react-markdown": "^10.1.0"
+  }
+}
