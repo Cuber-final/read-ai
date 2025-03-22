@@ -8,6 +8,7 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { BsTranslate } from 'react-icons/bs';
 import { TbHexagonLetterD } from 'react-icons/tb';
 import { FaHeadphones } from 'react-icons/fa6';
+import { FaRobot } from 'react-icons/fa'; // 添加AI图标
 
 import * as CFI from 'foliate-js/epubcfi.js';
 import { Overlayer } from 'foliate-js/overlayer.js';
@@ -438,6 +439,15 @@ const Annotator: React.FC<{ bookKey: string }> = ({ bookKey }) => {
     eventDispatcher.dispatch('tts-speak', { bookKey, range: selection.range });
   };
 
+  const handleAIChat = () => {
+    if (!selection || !selection.text) return;
+    setShowAnnotPopup(false);
+    eventDispatcher.dispatch('ai-chat', {
+      text: selection.text,
+      context: progress?.sectionHref  // 可选：传递当前章节信息作为上下文
+    });
+  };
+
   const selectionAnnotated = selection?.annotated;
   const buttons = [
     { tooltipText: _('Copy'), Icon: FiCopy, onClick: handleCopy },
@@ -447,6 +457,7 @@ const Annotator: React.FC<{ bookKey: string }> = ({ bookKey }) => {
       onClick: handleHighlight,
     },
     { tooltipText: _('Annotate'), Icon: BsPencilSquare, onClick: handleAnnotate },
+    { tooltipText: _('AI Chat'), Icon: FaRobot, onClick: handleAIChat },
     { tooltipText: _('Search'), Icon: FiSearch, onClick: handleSearch },
     { tooltipText: _('Dictionary'), Icon: TbHexagonLetterD, onClick: handleDictionary },
     { tooltipText: _('Wikipedia'), Icon: FaWikipediaW, onClick: handleWikipedia },

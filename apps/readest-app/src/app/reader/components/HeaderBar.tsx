@@ -14,6 +14,7 @@ import BookmarkToggler from './BookmarkToggler';
 import NotebookToggler from './NotebookToggler';
 import SettingsToggler from './SettingsToggler';
 import ViewMenu from './ViewMenu';
+import AIChatToggler from './aichatter/AIChatToggler';
 
 interface HeaderBarProps {
   bookKey: string;
@@ -98,6 +99,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
       <div className='bg-base-100 z-20 ml-auto flex h-full items-center space-x-4'>
         <SettingsToggler />
         <NotebookToggler bookKey={bookKey} />
+        <AIChatToggler />
         <Dropdown
           className='exclude-title-bar-mousedown dropdown-bottom dropdown-end'
           buttonClassName='btn btn-ghost h-8 min-h-8 w-8 p-0'

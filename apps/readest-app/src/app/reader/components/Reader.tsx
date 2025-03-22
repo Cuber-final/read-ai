@@ -13,6 +13,7 @@ import { useScreenWakeLock } from '@/hooks/useScreenWakeLock';
 import { AboutWindow } from '@/components/AboutWindow';
 import { Toast } from '@/components/Toast';
 import ReaderContent from './ReaderContent';
+import AISidebar from './aichatter/AISidebar';
 
 const Reader: React.FC<{ ids?: string }> = ({ ids }) => {
   const { envConfig, appService } = useEnv();
@@ -40,21 +41,26 @@ const Reader: React.FC<{ ids?: string }> = ({ ids }) => {
   }, []);
 
   return (
-    getVisibleLibrary().length > 0 &&
-    settings.globalReadSettings && (
-      <div
-        className={clsx(
-          `reader-page bg-base-100 text-base-content select-none`,
-          appService?.hasRoundedWindow && 'rounded-window',
+    <div className="relative h-screen">
+      {getVisibleLibrary().length > 0 &&
+        settings.globalReadSettings && (
+          <div
+            className={clsx(
+              `reader-page bg-base-100 text-base-content select-none`,
+              appService?.hasRoundedWindow && 'rounded-window',
+            )}
+          >
+            <Suspense>
+              <ReaderContent ids={ids} settings={settings} />
+              <AboutWindow />
+              <Toast />
+            </Suspense>
+          </div>
         )}
-      >
-        <Suspense>
-          <ReaderContent ids={ids} settings={settings} />
-          <AboutWindow />
-          <Toast />
-        </Suspense>
-      </div>
-    )
+
+      {/* AI聊天侧边栏 */}
+      <AISidebar />
+    </div>
   );
 };
 
